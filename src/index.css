@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #0b0f19;
+    color: #f3f4f6;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom glowing effects and casino animations */
+@keyframes neonGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px #f59e0b, 0 0 15px #f59e0b, 0 0 30px #d97706;
+  }
+  50% {
+    text-shadow: 0 0 10px #fbbf24, 0 0 25px #f59e0b, 0 0 45px #b45309;
+  }
+}
+
+@keyframes jackpotPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.8), 0 0 60px rgba(239, 68, 68, 0.5);
+  }
+}
+
+@keyframes chipBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.neon-text-gold {
+  animation: neonGlow 2.5s infinite alternate;
+}
+
+.jackpot-glow {
+  animation: jackpotPulse 1.8s infinite;
+}
+
+.chip-bounce {
+  animation: chipBounce 2s ease-in-out infinite;
+}
+
+/* ─── 3D Casino Shared Utilities ─── */
+
+.casino-3d-stage {
+  perspective: 900px;
+  perspective-origin: 50% 45%;
+}
+
+/* 3D Card Deal */
+@keyframes cardDeal3D {
+  0%   { transform: translateX(80px) translateZ(-80px) rotateY(180deg); opacity: 0; }
+  60%  { transform: translateX(0) translateZ(30px) rotateY(20deg); opacity: 1; }
+  100% { transform: translateX(0) translateZ(0) rotateY(0deg); opacity: 1; }
+}
+.card-deal-3d {
+  animation: cardDeal3D 0.55s cubic-bezier(.17,.67,.35,1.2) both;
+  transform-style: preserve-3d;
+}
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(.17,.67,.35,1.2);
+}
+.card-3d:hover {
+  transform: translateY(-6px) rotateY(8deg) scale(1.06);
+}
+
+/* 3D Tile Flip (Mines) */
+@keyframes tileFlip3D {
+  0%   { transform: perspective(600px) rotateY(0deg); }
+  50%  { transform: perspective(600px) rotateY(90deg); }
+  100% { transform: perspective(600px) rotateY(0deg); }
+}
+.tile-flip-3d {
+  animation: tileFlip3D 0.45s ease-in-out both;
+  transform-style: preserve-3d;
+}
+
+/* Mine Explosion Shake */
+@keyframes mineShake {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  10% { transform: translateX(-6px) translateY(2px); }
+  20% { transform: translateX(5px) translateY(-3px); }
+  30% { transform: translateX(-4px) translateY(4px); }
+  40% { transform: translateX(6px) translateY(-1px); }
+  50% { transform: translateX(-3px) translateY(5px); }
+  60% { transform: translateX(4px) translateY(-4px); }
+  70% { transform: translateX(-5px) translateY(2px); }
+  80% { transform: translateX(3px) translateY(-3px); }
+  90% { transform: translateX(-2px) translateY(1px); }
+}
+.mine-shake { animation: mineShake 0.5s ease-in-out; }
+
+/* Gem Sparkle */
+@keyframes gemSparkle {
+  0%, 100% { filter: brightness(1); transform: scale(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 6px rgba(52,211,153,0.8)); transform: scale(1.15); }
+}
+.gem-sparkle { animation: gemSparkle 0.5s ease-out; }
+
+/* 3D Slot Reel Spin */
+@keyframes reelSpin3D {
+  0%   { transform: perspective(400px) rotateX(0deg); filter: blur(0); }
+  25%  { transform: perspective(400px) rotateX(90deg); filter: blur(2px); }
+  50%  { transform: perspective(400px) rotateX(180deg); filter: blur(3px); }
+  75%  { transform: perspective(400px) rotateX(270deg); filter: blur(2px); }
+  100% { transform: perspective(400px) rotateX(360deg); filter: blur(0); }
+}
+.reel-spin-3d {
+  animation: reelSpin3D 0.18s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* 3D Reel Stop Bounce */
+@keyframes reelStop3D {
+  0%   { transform: perspective(400px) translateY(-12px) rotateX(15deg); }
+  40%  { transform: perspective(400px) translateY(4px) rotateX(-5deg); }
+  70%  { transform: perspective(400px) translateY(-2px) rotateX(2deg); }
+  100% { transform: perspective(400px) translateY(0) rotateX(0deg); }
+}
+.reel-stop-3d {
+  animation: reelStop3D 0.45s cubic-bezier(.22,1.2,.36,1) both;
+}
+
+/* 3D Rocket Thrust Shake */
+@keyframes rocketThrust {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-1.5px) translateY(1px); }
+  50% { transform: translateX(1.5px) translateY(-1px); }
+  75% { transform: translateX(-1px) translateY(0.5px); }
+}
+.rocket-thrust { animation: rocketThrust 0.12s linear infinite; }
+
+/* Crash Explosion Burst */
+@keyframes crashExplosion {
+  0%   { transform: scale(0.5); opacity: 1; filter: brightness(3); }
+  50%  { transform: scale(1.8); opacity: 0.8; filter: brightness(2); }
+  100% { transform: scale(2.2); opacity: 0; filter: brightness(1); }
+}
+.crash-explosion { animation: crashExplosion 0.6s ease-out both; }
+
+/* 3D Cabinet Shadow */
+.cabinet-3d-shadow {
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.6),
+    0 4px 16px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* Metallic Shine Sweep */
+@keyframes metallicSweep {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.metallic-shine {
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255,255,255,0.12) 40%,
+    rgba(255,255,255,0.25) 50%,
+    rgba(255,255,255,0.12) 60%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: metallicSweep 3s ease-in-out infinite;
+}
+
+/* Win Celebration Glow */
+@keyframes winCelebration {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(52,211,153,0.3), 0 0 30px rgba(52,211,153,0.15);
+    border-color: rgba(52,211,153,0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(52,211,153,0.6), 0 0 50px rgba(52,211,153,0.3), 0 0 80px rgba(251,191,36,0.2);
+    border-color: rgba(52,211,153,0.9);
+  }
+}
+.win-glow { animation: winCelebration 1.2s ease-in-out infinite; }
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
